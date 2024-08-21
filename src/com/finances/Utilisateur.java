@@ -1,5 +1,6 @@
 package com.finances;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,5 +47,19 @@ public class Utilisateur {
         } else {
             System.out.println("Le montant de la dépense doit être positif.");
         }
+    }
+
+    public List<Depenses> getExpenseByCategory(Categories category) {
+        return depenses.stream()
+                .filter(depenses -> depenses.getCategorie() == category)
+                .toList();
+    }
+
+    public double getTotalSpentThisMonth() {
+        LocalDate now = LocalDate.now();
+        return depenses.stream()
+                .filter(depenses -> depenses.getDate().getMonth() == now.getMonth())
+                .mapToDouble(Depenses::getMontant)
+                .sum();
     }
 }
