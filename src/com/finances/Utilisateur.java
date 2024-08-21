@@ -1,13 +1,16 @@
 package com.finances;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Utilisateur {
     private String nom;
     private double budgetMensuel;
-    private Depenses depenses;
+    private List<Depenses> depenses;
     public Utilisateur(String nom, double budgetMensuel, Depenses depenses) {
         this.nom = nom;
         this.budgetMensuel = budgetMensuel;
-        this.depenses = depenses;
+        this.depenses =  new ArrayList<>();
     }
 
     public String getNom() {
@@ -28,21 +31,20 @@ public class Utilisateur {
         return this;
     }
 
-    public Depenses getDepenses() {
+    public List<Depenses> getDepenses() {
         return depenses;
     }
 
-    public Utilisateur setDepenses(Depenses depenses) {
+    public Utilisateur setDepenses(List<Depenses> depenses) {
         this.depenses = depenses;
         return this;
     }
 
-    @Override
-    public String toString() {
-        return "Utilisateur{" +
-                "nom='" + nom + '\'' +
-                ", budgetMensuel=" + budgetMensuel +
-                ", depenses=" + depenses +
-                '}';
+    public void addExpense(Depenses depenses) {
+        if (depenses.getMontant() > 0) {
+            this.depenses.add(depenses);
+        } else {
+            System.out.println("Le montant de la dépense doit être positif.");
+        }
     }
 }
